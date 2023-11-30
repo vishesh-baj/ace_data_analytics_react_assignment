@@ -5,10 +5,22 @@ import { PATHS } from "./routes/paths";
 import PrivateRoute from "./routes/privateRoute";
 
 export default function App() {
+  const isAuthenticated = localStorage.getItem("isLoggedIn") === "true";
   return (
     <div>
       <Routes>
-        <Route path={PATHS.loginPage} element={<LoginPage />} />
+        <Route
+          path={PATHS.loginPage}
+          element={
+            isAuthenticated ? (
+              <AppLayout>
+                <AllDishesPage />
+              </AppLayout>
+            ) : (
+              <LoginPage />
+            )
+          }
+        />
         <Route
           path={PATHS.all_dishes}
           element={
