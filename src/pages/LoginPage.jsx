@@ -29,10 +29,10 @@ const LoginPage = () => {
         localStorage.setItem("isLoggedIn", true);
         navigate(PATHS.all_dishes);
       } else {
-        swal.showErrorAlert("Incorrect Password", "Please try again");
+        swal.showErrorAlert("Incorrect Password", "Please try again", "error");
       }
     } else {
-      swal.showErrorAlert("Incorrect Email", "Please try again");
+      swal.showErrorAlert("Incorrect Email", "Please try again", "error");
     }
   };
 

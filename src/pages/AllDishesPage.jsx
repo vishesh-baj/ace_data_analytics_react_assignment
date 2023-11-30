@@ -1,37 +1,56 @@
 import { useQuery } from "react-query";
 import { fetchAllDishes } from "../api";
 import { useEffect, useState } from "react";
-
+// import useSwal from "../hooks/useSwal";
 const AllDishesPage = () => {
+  // const swal = useSwal();
   const { data, isLoading, error } = useQuery("dishes_data", fetchAllDishes, {
     staleTime: 100000,
   });
 
   const [selectedDishes, setSelectedDishes] = useState([]);
-  const maxSelectedDishes = 3;
+  const [showModal, setShowModal] = useState(false);
+
+  const handleToggleModal = () => {
+    if (showModal) {
+      document.getElementById("all_dishes_modal").showModal();
+    }
+  };
+  const handleDishSelection = (dish) => {
+    console.log("SLECTED DISH: ", dish);
+    if (selectedDishes.length >= 3) {
+      setShowModal(true);
+    } else {
+      selectedDishes.includes(dish)
+        ? setSelectedDishes((prevState) =>
+            prevState.filter((state_dish) => state_dish === dish)
+          )
+        : setSelectedDishes((prevState) => [...prevState, dish]);
+    }
+  };
+
+  const handleCardBackgroundColor = (dish) => {
+    // if the dish exists in selectedDishes then change the background color
+    if (selectedDishes.includes(dish)) {
+      return "bg-base-100";
+    } else {
+      return "bg-base-300";
+    }
+  };
+
+  const resetDishesSelection = () => {
+    setSelectedDishes([]);
+    document.getElementById("all_dishes_modal").close();
+    setShowModal(false);
+  };
 
   useEffect(() => {
     console.log("SLECTED DISHES: ", selectedDishes);
   }, [selectedDishes]);
 
-  const handleCheckboxChange = (dish) => {
-    if (selectedDishes.includes(dish)) {
-      setSelectedDishes((prevSelected) =>
-        prevSelected.filter((selected) => selected !== dish)
-      );
-    } else if (selectedDishes.length < maxSelectedDishes) {
-      const dishWithPoint = {
-        ...dish,
-        Point:
-          selectedDishes.length === 0
-            ? 30
-            : selectedDishes.length === 1
-            ? 20
-            : 10,
-      };
-      setSelectedDishes((prevSelected) => [...prevSelected, dishWithPoint]);
-    }
-  };
+  useEffect(() => {
+    handleToggleModal();
+  }, [showModal]);
 
   if (isLoading) {
     return (
@@ -53,9 +72,7 @@ const AllDishesPage = () => {
       {data.map((dish) => (
         <div
           key={dish.id}
-          className={`card bg-${
-            selectedDishes.includes(dish) ? "success" : "base-300"
-          } shadow-xl`}
+          className={`card shadow-xl ${handleCardBackgroundColor(dish)}`}
         >
           <figure>
             <img
@@ -67,20 +84,36 @@ const AllDishesPage = () => {
           <div className="card-body">
             <div className="flex justify-between items-center">
               <h2 className="card-title">{dish.dishName}</h2>
-              <input
-                className="checkbox checkbox-primary"
-                type="checkbox"
-                onChange={() => handleCheckboxChange(dish)}
-                disabled={
-                  selectedDishes.length >= maxSelectedDishes &&
-                  !selectedDishes.includes(dish)
-                }
-              />
             </div>
             <p>{dish.description}</p>
+            <div className="card-actions">
+              <button
+                onClick={() => handleDishSelection(dish)}
+                className="btn btn-primary"
+              >
+                Select
+              </button>
+            </div>
           </div>
         </div>
       ))}
+
+      <dialog id="all_dishes_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Ops!</h3>
+          <p className="py-4">
+            You cannot rank more than three dishes at a time
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button onClick={resetDishesSelection} className="btn">
+                try again
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };
