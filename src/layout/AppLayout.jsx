@@ -6,9 +6,7 @@ const AppLayout = ({ children }) => {
     <div className="drawer lg:drawer-open">
       <input id="app_drawer" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
-        {/* Page content here */}
         <Navbar />
-
         {children}
       </div>
       <div className="drawer-side">
