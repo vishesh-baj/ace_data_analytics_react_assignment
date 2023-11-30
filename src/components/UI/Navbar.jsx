@@ -1,13 +1,23 @@
 import { CiLogout } from "react-icons/ci";
 import { PiCookingPotThin } from "react-icons/pi";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
+import { PATHS } from "../../routes/paths";
+
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate(PATHS.loginPage);
+  };
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">
+        <button className="btn btn-ghost text-xl">
           <PiCookingPotThin className="w-5 h-5" />
-        </a>
+        </button>
       </div>
       <div className="flex-none">
         <label
@@ -16,7 +26,7 @@ const Navbar = () => {
         >
           <RxHamburgerMenu className="w-5 h-5" />
         </label>
-        <button className="btn btn-square btn-ghost">
+        <button onClick={handleLogout} className="btn btn-square btn-ghost">
           <CiLogout className="w-5 h-5" />
         </button>
       </div>
