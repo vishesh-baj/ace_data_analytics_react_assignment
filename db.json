@@ -10,7 +10,7 @@
       "id": "02",
       "email": "vishesh1@gmail.com",
       "password": "123456",
-      "isAdmin": false
+      "isAdmin": true
     }
   ]
 }
