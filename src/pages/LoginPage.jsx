@@ -20,14 +20,13 @@ const LoginPage = () => {
   });
 
   const onSubmit = async (loginData) => {
-    console.log("LOGIN DATA: ", loginData);
     const users = (await axios.get(`${API_ENDPOINT}/users`)).data;
-    console.log("USERS: ", users);
     const emailExists = users.filter((user) => {
       return user.email === loginData.email;
     });
     if (emailExists.length > 0) {
       if (emailExists[0].password === loginData.password) {
+        localStorage.setItem("isLoggedIn", true);
         navigate(PATHS.all_dishes);
       } else {
         swal.showErrorAlert("Incorrect Password", "Please try again");
