@@ -1,9 +1,7 @@
 import { useQuery } from "react-query";
 import { fetchAllDishes } from "../api";
 import { useEffect, useState } from "react";
-// import useSwal from "../hooks/useSwal";
 const AllDishesPage = () => {
-  // const swal = useSwal();
   const { data, isLoading, error } = useQuery("dishes_data", fetchAllDishes, {
     staleTime: 100000,
   });
@@ -23,14 +21,13 @@ const AllDishesPage = () => {
     } else {
       selectedDishes.includes(dish)
         ? setSelectedDishes((prevState) =>
-            prevState.filter((state_dish) => state_dish === dish)
+            prevState.filter((state_dish) => state_dish !== dish)
           )
         : setSelectedDishes((prevState) => [...prevState, dish]);
     }
   };
 
   const handleCardBackgroundColor = (dish) => {
-    // if the dish exists in selectedDishes then change the background color
     if (selectedDishes.includes(dish)) {
       return "bg-base-100";
     } else {
