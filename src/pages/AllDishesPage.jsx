@@ -1,23 +1,29 @@
 import { useQuery } from "react-query";
 import { fetchAllDishes } from "../api";
 import { useEffect, useState } from "react";
+import { API_ENDPOINT } from "../constants";
+import axios from "axios";
 const AllDishesPage = () => {
   const { data, isLoading, error } = useQuery("dishes_data", fetchAllDishes, {
     staleTime: 100000,
   });
 
   const [selectedDishes, setSelectedDishes] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [limitShowModal, setLimitShowModal] = useState(false);
 
-  const handleToggleModal = () => {
-    if (showModal) {
-      document.getElementById("all_dishes_modal").showModal();
+  const isThreeDishesSelected = selectedDishes.length === 3;
+
+  const handleLimitShowModal = () => {
+    if (limitShowModal) {
+      document.getElementById("all_dishes_limit_modal").showModal();
     }
   };
+
   const handleDishSelection = (dish) => {
     console.log("SLECTED DISH: ", dish);
+
     if (selectedDishes.length >= 3) {
-      setShowModal(true);
+      setLimitShowModal(true);
     } else {
       selectedDishes.includes(dish)
         ? setSelectedDishes((prevState) =>
@@ -37,17 +43,66 @@ const AllDishesPage = () => {
 
   const resetDishesSelection = () => {
     setSelectedDishes([]);
-    document.getElementById("all_dishes_modal").close();
-    setShowModal(false);
+    document.getElementById("all_dishes_limit_modal").close();
+    setLimitShowModal(false);
+    document.body.scrollTop();
+  };
+
+  const handleDishSubmit = async () => {
+    try {
+      const userEmail = localStorage.getItem("userEmail");
+      const response = await axios.get(
+        `${API_ENDPOINT}/users?email=${userEmail}`
+      );
+      const userData = response.data;
+      const userId = userData[0]?.id;
+      const updatedDishes = userData[0]?.dishes.map((existingDish) => {
+        const existingIndex = selectedDishes.findIndex(
+          (newDish) => newDish.id === existingDish.id
+        );
+        if (existingIndex !== -1) {
+          const points =
+            existingDish.Points +
+            (existingIndex === 0
+              ? 30
+              : existingIndex === 1
+              ? 20
+              : existingIndex === 2
+              ? 10
+              : 0);
+          return { ...existingDish, Points: points };
+        }
+        return existingDish;
+      });
+      const newDishes = selectedDishes
+        .filter((newDish) =>
+          updatedDishes.every((existingDish) => existingDish.id !== newDish.id)
+        )
+        .map((newDish, index) => {
+          const points =
+            index === 0 ? 30 : index === 1 ? 20 : index === 2 ? 10 : 0;
+          return { ...newDish, Points: points };
+        });
+      const dishesWithPoints = [...updatedDishes, ...newDishes];
+      await axios.patch(`${API_ENDPOINT}/users/${userId}`, {
+        dishes: dishesWithPoints,
+      });
+      // Reset selected dishes
+      setSelectedDishes([]);
+    } catch (error) {
+      console.error("Error submitting dishes:", error);
+    }
   };
 
   useEffect(() => {
-    console.log("SLECTED DISHES: ", selectedDishes);
-  }, [selectedDishes]);
+    handleLimitShowModal();
+  }, [limitShowModal]);
 
   useEffect(() => {
-    handleToggleModal();
-  }, [showModal]);
+    if (isThreeDishesSelected) {
+      document.body.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  }, [isThreeDishesSelected]);
 
   if (isLoading) {
     return (
@@ -94,16 +149,26 @@ const AllDishesPage = () => {
           </div>
         </div>
       ))}
+      {isThreeDishesSelected && (
+        <div className="flex justify-center items-center animate-bounce">
+          <button
+            onClick={handleDishSubmit}
+            className="btn btn-secondary w-full"
+          >
+            Submit
+          </button>
+        </div>
+      )}
 
-      <dialog id="all_dishes_modal" className="modal">
+      {/* limit modal */}
+      <dialog id="all_dishes_limit_modal" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Ops!</h3>
           <p className="py-4">
             You cannot rank more than three dishes at a time
           </p>
           <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
+            <form method="dialog ">
               <button onClick={resetDishesSelection} className="btn">
                 try again
               </button>
