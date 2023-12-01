@@ -28,6 +28,7 @@ const LoginPage = () => {
       if (emailExists[0].password === loginData.password) {
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("userEmail", emailExists[0].email);
+        localStorage.setItem("isAdmin", emailExists[0].isAdmin);
         navigate(PATHS.all_dishes);
       } else {
         swal.showErrorAlert("Incorrect Password", "Please try again", "error");

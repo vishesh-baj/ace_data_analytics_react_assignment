@@ -1,11 +1,19 @@
 import { Routes, Route } from "react-router-dom";
-import { LoginPage, AllDishesPage, RankingsPage, PageNotFound } from "./pages";
+import {
+  LoginPage,
+  AllDishesPage,
+  RankingsPage,
+  PageNotFound,
+  AllUsers,
+} from "./pages";
 import AppLayout from "./layout/AppLayout";
 import { PATHS } from "./routes/paths";
 import PrivateRoute from "./routes/privateRoute";
+import AdminRoute from "./routes/AdminRoute";
 
 export default function App() {
   const isAuthenticated = localStorage.getItem("isLoggedIn") === "true";
+
   return (
     <div>
       <Routes>
@@ -41,6 +49,20 @@ export default function App() {
               element={
                 <AppLayout>
                   <RankingsPage />
+                </AppLayout>
+              }
+              redirectTo={PATHS.loginPage}
+            />
+          }
+        />
+        {/* admin route */}
+        <Route
+          path={PATHS.allUsers}
+          element={
+            <AdminRoute
+              element={
+                <AppLayout>
+                  <AllUsers />
                 </AppLayout>
               }
               redirectTo={PATHS.loginPage}
