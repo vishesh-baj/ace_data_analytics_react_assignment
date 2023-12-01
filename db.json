@@ -35,13 +35,6 @@
           "Points": 30
         },
         {
-          "id": 3,
-          "dishName": "Stinky Tofus",
-          "description": "Two buttermilk waffles, topped with whipped cream and maple syrup, a side of two eggs served any style, and your choice of smoked bacon or smoked ham.",
-          "image": "https://loremflickr.com/300/300/food",
-          "Points": "5010"
-        },
-        {
           "id": 11,
           "dishName": "Seafood Paella",
           "description": "Two butter croissants of your choice (plain, almond or cheese). With a side of herb butter or house-made hazelnut spread.",
