@@ -39,7 +39,42 @@
           "dishName": "Stinky Tofus",
           "description": "Two buttermilk waffles, topped with whipped cream and maple syrup, a side of two eggs served any style, and your choice of smoked bacon or smoked ham.",
           "image": "https://loremflickr.com/300/300/food",
-          "Points": "50"
+          "Points": "5010"
+        },
+        {
+          "id": 11,
+          "dishName": "Seafood Paella",
+          "description": "Two butter croissants of your choice (plain, almond or cheese). With a side of herb butter or house-made hazelnut spread.",
+          "image": "https://loremflickr.com/300/300/food",
+          "Points": 30
+        },
+        {
+          "id": 12,
+          "dishName": "Chilli con Carne",
+          "description": "Thick slices of French toast bread, brown sugar, half-and-half and vanilla, topped with powdered sugar. With two eggs served any style, and your choice of smoked bacon or smoked ham.",
+          "image": "https://loremflickr.com/300/300/food",
+          "Points": 20
+        },
+        {
+          "id": 16,
+          "dishName": "Pasta Carbonara",
+          "description": "Creamy mascarpone cheese and custard layered between espresso and rum soaked house-made ladyfingers, topped with Valrhona cocoa powder.",
+          "image": "https://loremflickr.com/300/300/food",
+          "Points": 10
+        },
+        {
+          "id": 1,
+          "dishName": "Lasagne",
+          "description": "Breaded fried chicken with waffles, and a side of maple syrup.",
+          "image": "https://loremflickr.com/300/300/food",
+          "Points": 30
+        },
+        {
+          "id": 2,
+          "dishName": "Pho",
+          "description": "Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant.",
+          "image": "https://loremflickr.com/300/300/food",
+          "Points": 20
         }
       ]
     },
@@ -54,21 +89,28 @@
           "dishName": "Lasagne",
           "description": "Breaded fried chicken with waffles, and a side of maple syrup.",
           "image": "https://loremflickr.com/300/300/food",
-          "Points": "5"
+          "Points": "530"
         },
         {
           "id": 2,
           "dishName": "Pho",
           "description": "Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant.",
           "image": "https://loremflickr.com/300/300/food",
-          "Points": 20
+          "Points": 70
         },
         {
           "id": 3,
           "dishName": "Stinky Tofu",
           "description": "Two buttermilk waffles, topped with whipped cream and maple syrup, a side of two eggs served any style, and your choice of smoked bacon or smoked ham.",
           "image": "https://loremflickr.com/300/300/food",
-          "Points": 10
+          "Points": 20
+        },
+        {
+          "id": 13,
+          "dishName": "Pappardelle alla Bolognese",
+          "description": "Thick slices of French toast bread, brown sugar, half-and-half and vanilla, topped with powdered sugar. With two eggs served any style, and your choice of smoked bacon or smoked ham.",
+          "image": "https://loremflickr.com/300/300/food",
+          "Points": "15"
         }
       ]
     }
