@@ -1,12 +1,12 @@
 import Swal from "sweetalert2";
 
 const useSwal = () => {
-  const showErrorAlert = (title, text, icon) => {
+  const showErrorAlert = (title, text, icon, confirmButtonText) => {
     Swal.fire({
       title,
       text,
       icon,
-      confirmButtonText: "Try Again",
+      confirmButtonText,
       confirmButtonColor: "#5D81AB",
     });
   };

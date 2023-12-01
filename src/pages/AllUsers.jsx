@@ -3,8 +3,9 @@ import axios from "axios";
 import { API_ENDPOINT } from "../constants";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
-
+import useSwal from "../hooks/useSwal";
 const AllUsers = () => {
+  const swal = useSwal();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,6 +34,12 @@ const AllUsers = () => {
           (dish) => dish.id !== dishId
         );
         await axios.put(`${API_ENDPOINT}/users/${userId}`, updatedUser);
+        swal.showErrorAlert(
+          "Dish Deleted Successfully",
+          `dish with id ${dishId} is deleted from database`,
+          "success",
+          "Go Back"
+        );
         refetchData();
       } else {
         console.error("User not found");
@@ -57,6 +64,12 @@ const AllUsers = () => {
             ...updatedDish,
           };
           await axios.put(`${API_ENDPOINT}/users/${userId}`, updatedUser);
+          swal.showErrorAlert(
+            "Dish Edited Successfully",
+            "Your dish is edited",
+            "success",
+            "Go Back"
+          );
           refetchData();
           setEditDishData({
             userId: null,
@@ -110,7 +123,7 @@ const AllUsers = () => {
     <div className="p-4">
       <h1 className="py-4 text-2xl">Users Data</h1>
       <div className="overflow-x-scroll">
-        <table className="table table-zebra table-fixed bg-base-300  rounded-xl">
+        <table className="table table-xs table-zebra table-fixed bg-base-300  rounded-xl">
           <thead className="bg-base-200 rounded-xl">
             <tr>
               <th className="py-2 px-4">Email</th>
@@ -124,9 +137,11 @@ const AllUsers = () => {
           <tbody>
             {data?.map((user) => (
               <React.Fragment key={user.id}>
-                <tr className="flex gap-2">
+                <tr>
                   <td className="py-2 px-4">{user.email}</td>
-                  <td colSpan={3} className="py-2 px-4 font-bold">Dishes</td>
+                  <td colSpan={3} className="py-2 px-4 font-bold">
+                    Dishes
+                  </td>
                 </tr>
                 {user.dishes.map((dish) => (
                   <tr key={dish.id}>
@@ -143,7 +158,7 @@ const AllUsers = () => {
                     </td>
                     <td className="py-2 px-4">{dish.description}</td>
                     <td className="py-2 px-4">{dish.Points}</td>
-                    <td className="py-2 px-4 flex gap-4">
+                    <td className="py-2 px-4 md:flex md:gap-4">
                       <button
                         onClick={() => handleDelete(user.id, dish.id)}
                         className="btn btn-ghost"

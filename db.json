@@ -22,7 +22,7 @@
         },
         {
           "id": 27,
-          "dishName": "Caprese Salad",
+          "dishName": "Caprese Salads",
           "description": "Thick slices of French toast bread, brown sugar, half-and-half and vanilla, topped with powdered sugar. With two eggs served any style, and your choice of smoked bacon or smoked ham.",
           "image": "https://loremflickr.com/300/300/food",
           "Points": 30
@@ -33,13 +33,6 @@
           "description": "Two butter croissants of your choice (plain, almond or cheese). With a side of herb butter or house-made hazelnut spread.",
           "image": "https://loremflickr.com/300/300/food",
           "Points": 30
-        },
-        {
-          "id": 2,
-          "dishName": "Photato",
-          "description": "Three eggs with cilantro, tomatoes, onions, avocados and melted Emmental cheese. With a side of roasted potatoes, and your choice of toast or croissant.",
-          "image": "https://loremflickr.com/300/300/food",
-          "Points": "10"
         },
         {
           "id": 3,

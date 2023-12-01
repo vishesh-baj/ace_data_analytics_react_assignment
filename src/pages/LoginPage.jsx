@@ -31,10 +31,20 @@ const LoginPage = () => {
         localStorage.setItem("isAdmin", emailExists[0].isAdmin);
         navigate(PATHS.all_dishes);
       } else {
-        swal.showErrorAlert("Incorrect Password", "Please try again", "error");
+        swal.showErrorAlert(
+          "Incorrect Password",
+          "Please try again",
+          "error",
+          "Try Again"
+        );
       }
     } else {
-      swal.showErrorAlert("Incorrect Email", "Please try again", "error");
+      swal.showErrorAlert(
+        "Incorrect Email",
+        "Please try again",
+        "error",
+        "Try Again"
+      );
     }
   };
 

@@ -55,7 +55,6 @@ export default function App() {
             />
           }
         />
-        {/* admin route */}
         <Route
           path={PATHS.allUsers}
           element={
